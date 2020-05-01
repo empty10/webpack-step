@@ -20,7 +20,12 @@ module.exports = (env) => {
         rules:[
             {
                 test:/\.css$/,
-                use:['style-loader','css-loader']
+                use:['style-loader',{
+                    loader:'css-loader',
+                    options:{  //给loader 传递参数
+                        importLoaders:2
+                    }
+                },'postcss-loader','sass-loader']
             },
             {
                 test:/\.scss$/,
