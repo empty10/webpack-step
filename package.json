@@ -1,0 +1,16 @@
+{
+  "name": "webpack-step",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/empty10/webpack-step.git",
+  "author": "empty <zshgrlai@163.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev":"webpack --env.development --config ./build/webpack.base.conf.js ",
+    "build":"webpack --env.production --config ./build/webpack.base.conf.js "
+  },
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
