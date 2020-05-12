@@ -11,9 +11,12 @@ module.exports = (env) => {
   console.log("环境", env);
   const isDev = env.development;
   const base = {
-    entry: path.resolve(__dirname, "../src/index.js"),
+    entry: {
+      home:path.resolve(__dirname, "../src/home/index.js"),
+      about:path.resolve(__dirname, "../src/about/index.js"),
+    },
     output: {
-      filename: "bundle.js",
+      filename: "[name].js",
       path: path.resolve(__dirname, "../dist"),
     },
     module: {
@@ -53,7 +56,18 @@ module.exports = (env) => {
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "../public/index.html"),
-        filename: "index.html",
+        filename: "home/index.html",
+        chunks:['home'],
+        hash: true,
+        minify: !isDev && {
+          removeAttributeQuotes: true,
+          collapseWhitespace: true,
+        },
+      }),
+      new HtmlWebpackPlugin({
+        template: path.resolve(__dirname, "../public/index.html"),
+        filename: "about/index.html",
+        chunks:['about'],
         hash: true,
         minify: !isDev && {
           removeAttributeQuotes: true,
