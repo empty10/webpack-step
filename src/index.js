@@ -1,3 +1,7 @@
-import './index.css';
+import Vue from 'vue';
+import App from './App.vue';
 
-console.log('aaaa')
+const vm = new Vue({
+    el:'.app',
+    render:h=>h(App)
+})

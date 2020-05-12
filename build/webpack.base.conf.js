@@ -5,7 +5,7 @@ const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = (env) => {
   console.log("环境", env);
@@ -20,6 +20,10 @@ module.exports = (env) => {
       // 解析什么文件 test，用什么去转 loader
       // loader 的3种写法 [],{} ,''
       rules: [
+        {
+          test:/\.vue$/,
+          use:'vue-loader'
+        },
         {
           test: /\.css$/,
           use: [
@@ -45,6 +49,7 @@ module.exports = (env) => {
       new MiniCssExtractPlugin({
         filename: "css/main.css",
       }),
+      new VueLoaderPlugin(),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "../public/index.html"),
