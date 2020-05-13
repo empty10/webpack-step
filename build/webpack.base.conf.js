@@ -4,17 +4,15 @@ const prod = require("./webpack.prod.conf");
 const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const { getEntry } = require("./utils/getEntries");
 
 module.exports = (env) => {
   console.log("环境", env);
   const isDev = env.development;
   const base = {
-    entry: {
-      home:path.resolve(__dirname, "../src/home/index.js"),
-      about:path.resolve(__dirname, "../src/about/index.js"),
-    },
+    entry: getEntry(path.resolve(__dirname, "../src/*/index.js")),
     output: {
       filename: "[name].js",
       path: path.resolve(__dirname, "../dist"),
@@ -24,13 +22,13 @@ module.exports = (env) => {
       // loader 的3种写法 [],{} ,''
       rules: [
         {
-          test:/\.vue$/,
-          use:'vue-loader'
+          test: /\.vue$/,
+          use: "vue-loader",
         },
         {
           test: /\.css$/,
           use: [
-            isDev?"style-loader":MiniCssExtractPlugin.loader,
+            isDev ? "style-loader" : MiniCssExtractPlugin.loader,
             {
               loader: "css-loader",
               options: {
@@ -57,7 +55,7 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "../public/index.html"),
         filename: "home/index.html",
-        chunks:['home'],
+        chunks: ["home"],
         hash: true,
         minify: !isDev && {
           removeAttributeQuotes: true,
@@ -67,7 +65,7 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "../public/index.html"),
         filename: "about/index.html",
-        chunks:['about'],
+        chunks: ["about"],
         hash: true,
         minify: !isDev && {
           removeAttributeQuotes: true,
